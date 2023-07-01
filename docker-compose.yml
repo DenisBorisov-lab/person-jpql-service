@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  postgres:
+    image: postgres:11
+    restart: always
+    container_name: person_service
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: person_service
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+    command: postgres -N 100
