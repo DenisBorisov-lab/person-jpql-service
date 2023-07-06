@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity(name = "person")
 @Data
 @NoArgsConstructor
@@ -31,12 +29,7 @@ public class Person {
     @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     private String lastName;
 
-    @OneToMany(mappedBy = "person")
-    private List<Car> cars;
-
-
     @OneToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-
+    @JoinColumn(name = "car_id", referencedColumnName = "car_id")
+    private Car car;
 }
