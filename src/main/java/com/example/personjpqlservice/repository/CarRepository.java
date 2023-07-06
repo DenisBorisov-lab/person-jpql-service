@@ -30,7 +30,7 @@ public class CarRepository implements JpaRepository<Car> {
     @Override
     public void deleteById(Long id) {
         Car car = entityManager.find(Car.class, id);
-        if(car != null){
+        if (car != null) {
             entityManager.remove(car);
         }
     }

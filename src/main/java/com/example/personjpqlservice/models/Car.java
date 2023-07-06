@@ -19,10 +19,17 @@ public class Car {
     @Column(name = "car_id")
     private Long id;
 
-    @Column(name = "model", nullable = false)
+    @Column(name = "model", nullable = false, columnDefinition = "TEXT")
     private String model;
 
-    @ManyToOne
-    @JoinColumn(name = "person_id")
+    @OneToOne(mappedBy = "car")
     private Person person;
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                '}';
+    }
 }
