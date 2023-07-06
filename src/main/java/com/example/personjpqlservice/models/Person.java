@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity(name = "person")
 @Data
 @NoArgsConstructor
@@ -36,4 +38,12 @@ public class Person {
     @OneToOne
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
+
+    @OneToMany(
+            mappedBy = "person",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
+    )
+    private List<Account> accountList;
 }

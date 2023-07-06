@@ -1,6 +1,7 @@
 package com.example.personjpqlservice;
 
 
+import com.example.personjpqlservice.models.Account;
 import com.example.personjpqlservice.models.Address;
 import com.example.personjpqlservice.models.Car;
 import com.example.personjpqlservice.models.Person;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.List;
 
 @Slf4j
 @SpringBootApplication
@@ -39,6 +42,20 @@ public class PersonJpqlServiceApplication {
                 .car(bentley)
                 .address(address)
                 .build();
+
+        Account uber = Account.builder()
+                .serviceName("Uber")
+                .phoneNumber("+79994443322")
+                .person(person)
+                .build();
+
+        Account telegram = Account.builder()
+                .serviceName("Telegram")
+                .phoneNumber("+79864445522")
+                .person(person)
+                .build();
+
+        person.setAccountList(List.of(uber, telegram));
 
         carJpaRepository.save(bentley);
         log.info(String.format("Car with model: %s was saved to the database", bentley.getModel()));
