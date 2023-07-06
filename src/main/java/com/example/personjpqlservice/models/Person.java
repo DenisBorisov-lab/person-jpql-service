@@ -32,4 +32,8 @@ public class Person {
     @OneToOne
     @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     private Car car;
+
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
+    private Address address;
 }
