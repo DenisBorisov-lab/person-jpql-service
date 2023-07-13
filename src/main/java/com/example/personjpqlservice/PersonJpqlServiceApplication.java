@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -21,6 +22,7 @@ public class PersonJpqlServiceApplication {
         JpaRepository<Car> carJpaRepository = context.getBean(CarRepository.class);
         AddressRepository addressRepository = context.getBean(AddressRepository.class);
         UniversityRepository universityRepository = context.getBean(UniversityRepository.class);
+        CountryRepository countryRepository = context.getBean(CountryRepository.class);
 
         Car bentley = Car.builder()
                 .model("Bentley")
@@ -81,6 +83,15 @@ public class PersonJpqlServiceApplication {
 
         University univ = universityRepository.findById(1L);
         log.info(String.format("%s was gotten from the database", univ));
+
+        Country russia = Country.builder()
+                .name("Russia")
+                .universities(new ArrayList<>())
+                .build();
+
+        russia.addUniversity(university);
+
+        countryRepository.save(russia);
 
 
     }

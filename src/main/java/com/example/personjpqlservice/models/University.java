@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,4 +29,11 @@ public class University {
     )
     @JoinColumn(name = "university_id")
     private List<Person> personList;
+
+    @ManyToMany(mappedBy = "universities", fetch = FetchType.EAGER)
+    private List<Country> countries = new ArrayList<>();
+
+    public void addCountry(Country country) {
+        this.countries.add(country);
+    }
 }
