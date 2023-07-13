@@ -1,14 +1,8 @@
 package com.example.personjpqlservice;
 
 
-import com.example.personjpqlservice.models.Account;
-import com.example.personjpqlservice.models.Address;
-import com.example.personjpqlservice.models.Car;
-import com.example.personjpqlservice.models.Person;
-import com.example.personjpqlservice.repository.AddressRepository;
-import com.example.personjpqlservice.repository.CarRepository;
-import com.example.personjpqlservice.repository.JpaRepository;
-import com.example.personjpqlservice.repository.PersonRepository;
+import com.example.personjpqlservice.models.*;
+import com.example.personjpqlservice.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +20,7 @@ public class PersonJpqlServiceApplication {
         JpaRepository<Person> personJpaRepository = context.getBean(PersonRepository.class);
         JpaRepository<Car> carJpaRepository = context.getBean(CarRepository.class);
         AddressRepository addressRepository = context.getBean(AddressRepository.class);
+        UniversityRepository universityRepository = context.getBean(UniversityRepository.class);
 
         Car bentley = Car.builder()
                 .model("Bentley")
@@ -63,7 +58,7 @@ public class PersonJpqlServiceApplication {
         addressRepository.save(address);
         log.info(String.format("Address with street: %s was saved to the database", address.getStreet()));
 
-        personJpaRepository.save(person);
+//        personJpaRepository.save(person);
         log.info(String.format("Person with name: %s %s was saved to the database", person.getFirstName(), person.getLastName()));
 
         Car car = carJpaRepository.findById(1L);
@@ -71,6 +66,21 @@ public class PersonJpqlServiceApplication {
 
         Person owner = personJpaRepository.findById(1L);
         log.info(String.format("%s was gotten from the database", owner));
+
+        // результатом будет null
+        Person byId = personJpaRepository.findById(2L);
+        log.info(String.format("%s was found in the database", byId));
+
+        List<Person> personList = List.of(person);
+        University university = University.builder()
+                .name("MAI")
+                .personList(personList)
+                .build();
+
+        universityRepository.save(university);
+
+        University univ = universityRepository.findById(1L);
+        log.info(String.format("%s was gotten from the database", univ));
 
 
     }
